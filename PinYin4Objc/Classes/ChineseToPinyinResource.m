@@ -60,7 +60,10 @@ static inline NSString* cachePathForKey(NSString* directory, NSString* key) {
         @autoreleasepool {
                 [lines enumerateObjectsUsingBlock:^(id obj, NSUInteger idx, BOOL *stop) {
                     NSArray *lineComponents=[obj componentsSeparatedByCharactersInSet:[NSCharacterSet whitespaceCharacterSet]];
-                    [tempMap setObject:lineComponents[1] forKey:lineComponents[0]];
+                    if (lineComponents && [lineComponents count] > 1) {
+                        // 数组下标会超
+                        [tempMap setObject:lineComponents[1] forKey:lineComponents[0]];
+                    }
                 }];
          }
         self->_unicodeToHanyuPinyinTable=tempMap;
